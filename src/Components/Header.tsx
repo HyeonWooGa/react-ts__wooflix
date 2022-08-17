@@ -1,16 +1,15 @@
 import styled from "styled-components";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, useScroll } from "framer-motion";
 import { Link, useMatch } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: fixed;
   width: 100%;
   top: 0;
-  background-color: black;
   font-size: 14px;
   padding: 20px 60px;
   color: white;
@@ -97,6 +96,15 @@ const logoVariants = {
   },
 };
 
+const navVariants = {
+  top: {
+    backgroundColor: "rgba(0,0,0,0)",
+  },
+  scroll: {
+    backgroundColor: "rgba(0,0,0,1)",
+  },
+};
+
 function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -104,6 +112,8 @@ function Header() {
   const tvMatch = useMatch("/tv");
 
   const inputAnimation = useAnimation();
+  const navAnimation = useAnimation();
+  const { scrollY } = useScroll();
 
   const toggleSearch = () => {
     if (searchOpen) {
@@ -115,8 +125,17 @@ function Header() {
     }
     setSearchOpen((prev) => !prev);
   };
+  useEffect(() => {
+    scrollY.onChange(() => {
+      if (scrollY.get() > 80) {
+        navAnimation.start("scroll");
+      } else {
+        navAnimation.start("top");
+      }
+    });
+  }, [scrollY, navAnimation]);
   return (
-    <Nav>
+    <Nav variants={navVariants} initial="top" animate={navAnimation}>
       <Col>
         <Logo
           variants={logoVariants}
