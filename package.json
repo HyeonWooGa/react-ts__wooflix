@@ -53,6 +53,5 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
     "gh-pages": "^4.0.0"
-  },
-  "homepage": "https://hyeonwooga.github.io/react-ts__wooflix"
+  }
 }
