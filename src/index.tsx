@@ -62,9 +62,9 @@ table {
 body {
   font-weight: 300;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: black;
+  color: ${(props) => props.theme.white.darker};
   line-height: 1.2;
-  
+  background-color: black;
 }
 a {
   text-decoration:none;
