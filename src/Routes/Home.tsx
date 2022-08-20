@@ -50,11 +50,14 @@ const Row = styled(motion.div)`
   width: 100%;
 `;
 
-const Box = styled(motion.div)`
+const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-color: white;
   height: 200px;
   color: red;
   font-size: 66px;
+  background-image: url(${(props) => props.bgPhoto});
+  background-size: cover;
+  background-position: center center;
 `;
 
 const rowVariants = {
@@ -117,7 +120,10 @@ function Home() {
                   .slice(1)
                   .slice(offset * index, offset * index + offset)
                   .map((movie) => (
-                    <Box key={movie.id}>{movie.title}</Box>
+                    <Box
+                      bgPhoto={maekImagePath(movie.poster_path, "w500")}
+                      key={movie.id}
+                    />
                   ))}
               </Row>
             </AnimatePresence>
