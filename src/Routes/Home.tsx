@@ -79,9 +79,14 @@ function Home() {
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const increaseIndex = () => {
-    if (leaving) return;
-    setLeaving(true);
-    setIndex((prev) => prev + 1);
+    // 타입스크립트 오류 피하기 위해 if문 사용
+    if (data) {
+      if (leaving) return;
+      setLeaving(true);
+      const totalMovies = data.results.length - 1;
+      const maxIndex = Math.floor(totalMovies / offset) - 1;
+      setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    }
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
   // console.log(data, isLoading);
