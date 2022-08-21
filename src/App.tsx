@@ -12,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/tv" element={<Tv />} />
         <Route path="/serach" element={<Search />} />
+        <Route path="/movies/:id" element={<Home />} />
       </Routes>
     </>
   );
