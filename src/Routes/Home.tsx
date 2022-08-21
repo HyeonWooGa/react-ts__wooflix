@@ -58,6 +58,12 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-image: url(${(props) => props.bgPhoto});
   background-size: cover;
   background-position: center center;
+  &:first-child {
+    transform-origin: center left;
+  }
+  &:last-child {
+    transform-origin: center right;
+  }
 `;
 
 const rowVariants = {
@@ -69,6 +75,22 @@ const rowVariants = {
   },
   exit: {
     x: -window.outerWidth - 5,
+  },
+};
+
+const boxVariants = {
+  normal: {
+    scale: 1,
+    y: 0,
+  },
+  hover: {
+    scale: 1.3,
+    y: -50,
+    transition: {
+      delay: 0.4,
+      duration: 0.3,
+      type: "tween",
+    },
   },
 };
 
@@ -123,6 +145,10 @@ function Home() {
                     <Box
                       bgPhoto={maekImagePath(movie.poster_path, "w500")}
                       key={movie.id}
+                      variants={boxVariants}
+                      initial="normal"
+                      whileHover="hover"
+                      transition={{ type: "tween" }}
                     />
                   ))}
               </Row>
