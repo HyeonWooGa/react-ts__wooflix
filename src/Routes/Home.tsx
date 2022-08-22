@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { useState } from "react";
 import { PathMatch, useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -80,6 +80,15 @@ const Info = styled(motion.div)`
   }
 `;
 
+const Overlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+`;
+
 const rowVariants = {
   hidden: {
     x: window.outerWidth + 5,
@@ -126,6 +135,7 @@ function Home() {
   // bigMovieMatch 타입 선언 안줘 되지만 타입스크립트 공부를 위해 적용
   const bigMovieMatch: PathMatch<string> | null = useMatch("/movies/:movieId");
   //console.log(bigMovieMatch);
+  const { scrollY } = useScroll();
   const { data, isLoading } = useQuery<IGetMoviesResult>(
     ["movies", "nowPlaying"],
     getMovies
@@ -147,6 +157,7 @@ function Home() {
     navigate(`/movies/${movieId}`);
   };
   // console.log(data, isLoading);
+  const onOverlayClick = () => navigate(-1);
   return (
     <Wrapper>
       {isLoading ? (
@@ -194,19 +205,26 @@ function Home() {
           </Slider>
           <AnimatePresence>
             {bigMovieMatch ? (
-              <motion.div
-                style={{
-                  position: "absolute",
-                  width: "40vw",
-                  height: "80vh",
-                  backgroundColor: "red",
-                  top: 50,
-                  left: 0,
-                  right: 0,
-                  margin: "0 auto",
-                }}
-                layoutId={bigMovieMatch.params.movieId}
-              />
+              <>
+                <Overlay
+                  onClick={onOverlayClick}
+                  exit={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                />
+                <motion.div
+                  style={{
+                    position: "absolute",
+                    width: "40vw",
+                    height: "80vh",
+                    backgroundColor: "red",
+                    top: scrollY,
+                    left: 0,
+                    right: 0,
+                    margin: "0 auto",
+                  }}
+                  layoutId={bigMovieMatch.params.movieId}
+                />
+              </>
             ) : null}
           </AnimatePresence>
         </>
