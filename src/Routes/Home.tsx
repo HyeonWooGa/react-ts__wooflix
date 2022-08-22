@@ -217,7 +217,7 @@ function Home() {
                     width: "40vw",
                     height: "80vh",
                     backgroundColor: "red",
-                    top: scrollY,
+                    top: scrollY.get() + 100,
                     left: 0,
                     right: 0,
                     margin: "0 auto",
