@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { getMovies, IGetMoviesResult } from "../api";
 import { maekImagePath } from "../utills";
 import MoviesUpcoming from "../Components/MoviesUpcoming";
-import MoviesTopRated from "../Components/MoviesTopRaged";
+import MoviesTopRated from "../Components/MoviesTopRated";
 
 const Wrapper = styled.div`
   background-color: black;
