@@ -3,10 +3,8 @@ import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { useState } from "react";
 import { PathMatch, useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getMovies, IGetMoviesResult } from "../api";
+import { getTopRatedMovies, IGetMoviesResult } from "../api";
 import { maekImagePath } from "../utills";
-import MoviesUpcoming from "../Components/MoviesUpcoming";
-import MoviesTopRated from "../Components/MoviesTopRaged";
 
 const Wrapper = styled.div`
   background-color: black;
@@ -17,27 +15,6 @@ const Loader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const Banner = styled.div<{ bgphoto: string }>`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
-    url(${(props) => props.bgphoto});
-  background-size: cover;
-`;
-
-const Title = styled.h2`
-  font-size: 66px;
-  margin-bottom: 20px;
-`;
-
-const Overview = styled.p`
-  font-size: 24px;
-  width: 50%;
 `;
 
 const Slider = styled.div`
@@ -125,6 +102,10 @@ const BigOverview = styled.p`
   color: ${(props) => props.theme.white.lighter};
 `;
 
+const SizedBox = styled.div`
+  height: 280px;
+`
+
 const rowVariants = {
   hidden: {
     x: window.outerWidth + 5,
@@ -166,15 +147,15 @@ const infoVariants = {
 
 const offset = 6;
 
-function Home() {
+function MoviesUpcoming() {
   const navigate = useNavigate();
   // bigMovieMatch 타입 선언 안줘 되지만 타입스크립트 공부를 위해 적용
   const bigMovieMatch: PathMatch<string> | null = useMatch("/movies/:movieId");
   //console.log(bigMovieMatch);
   const { scrollY } = useScroll();
   const { data, isLoading } = useQuery<IGetMoviesResult>(
-    ["movies", "nowPlaying"],
-    getMovies
+    ["movies", "topRated"],
+    getTopRatedMovies
   );
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
@@ -206,13 +187,7 @@ function Home() {
         <Loader>Loading...</Loader>
         ) : (
           <>
-          <Banner
-            onClick={increaseIndex}
-            bgphoto={maekImagePath(data?.results[0].backdrop_path || "")}
-          >
-            <Title>{data?.results[0].title}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
-          </Banner>
+          <SizedBox />
           <Slider>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
@@ -245,8 +220,6 @@ function Home() {
               </Row>
             </AnimatePresence>
           </Slider>
-            <MoviesUpcoming />
-            <MoviesTopRated />
           <AnimatePresence>
             {bigMovieMatch ? (
               <>
@@ -283,4 +256,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default MoviesUpcoming;
