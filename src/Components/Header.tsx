@@ -144,6 +144,7 @@ function Header() {
   const onValid = (data: IForm) => {
     console.log(data);
     navigate(`/search?keyword=${data.keyword}`);
+    toggleSearch();
   };
   return (
     <Nav variants={navVariants} initial="top" animate={navAnimation}>
@@ -179,6 +180,7 @@ function Header() {
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
+            cursor={'pointer'}
           >
             <path
               fillRule="evenodd"
