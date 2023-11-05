@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/react-ts__wooflix/static/js/main.4a5bef24.js",
+    "main.js": "/react-ts__wooflix/static/js/main.46c2cdce.js",
     "index.html": "/react-ts__wooflix/index.html",
-    "main.4a5bef24.js.map": "/react-ts__wooflix/static/js/main.4a5bef24.js.map"
+    "main.46c2cdce.js.map": "/react-ts__wooflix/static/js/main.46c2cdce.js.map"
   },
   "entrypoints": [
-    "static/js/main.4a5bef24.js"
+    "static/js/main.46c2cdce.js"
   ]
 }
