@@ -83,7 +83,7 @@ root.render(
       <QueryClientProvider client={client}>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <BrowserRouter>
+          <BrowserRouter basename="react-ts__wooflix">
             <App />
           </BrowserRouter>
         </ThemeProvider>
